@@ -1,24 +1,21 @@
-import { Link, router } from "expo-router";
+import { router } from "expo-router";
 import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 
-export default function LoginScreen() {
-  const handleLogin = () => {
-    router.replace("/tasks");
+export default function SignupScreen() {
+  const handleSignup = () => {
+    router.replace("/login");
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Connexion</Text>
+      <Text style={styles.title}>Inscription</Text>
+      <TextInput placeholder="Nom complet" style={styles.input} />
       <TextInput placeholder="Email" keyboardType="email-address" style={styles.input} />
       <TextInput placeholder="Mot de passe" secureTextEntry style={styles.input} />
 
-      <Pressable onPress={handleLogin} style={styles.button}>
-        <Text style={styles.buttonText}>Se connecter</Text>
+      <Pressable onPress={handleSignup} style={styles.button}>
+        <Text style={styles.buttonText}>Creer mon compte</Text>
       </Pressable>
-
-      <Link href="/signup" style={styles.link}>
-        Je n&apos;ai pas encore de compte
-      </Link>
     </View>
   );
 }
@@ -42,7 +39,7 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
   },
   button: {
-    backgroundColor: "#2563eb",
+    backgroundColor: "#16a34a",
     borderRadius: 10,
     paddingVertical: 14,
     alignItems: "center",
@@ -50,10 +47,5 @@ const styles = StyleSheet.create({
   buttonText: {
     color: "#fff",
     fontWeight: "700",
-  },
-  link: {
-    color: "#2563eb",
-    fontWeight: "600",
-    textAlign: "center",
   },
 });

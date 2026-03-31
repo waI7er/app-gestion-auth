@@ -1,13 +1,29 @@
 import { useEffect } from "react";
-import { useNavigate } from "expo-router";
+import { router } from "expo-router";
+import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
 
-export default function Logout({ setAuth }) {
-  const navigate = useNavigate();
-
+export default function LogoutScreen() {
   useEffect(() => {
-    setAuth(false);
-    navigate("/login");
-  }, [setAuth, navigate]);
+    const timeout = setTimeout(() => {
+      router.replace("/login");
+    }, 300);
 
-  return <p>Déconnexion en cours...</p>;
+    return () => clearTimeout(timeout);
+  }, []);
+
+  return (
+    <View style={styles.container}>
+      <ActivityIndicator size="large" />
+      <Text>Deconnexion en cours...</Text>
+    </View>
+  );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    gap: 12,
+  },
+});

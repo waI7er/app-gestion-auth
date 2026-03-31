@@ -1,23 +1,24 @@
-import { Link, router } from "expo-router";
+import { Link } from "expo-router";
 import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 
-export default function LoginScreen() {
-  const handleLogin = () => {
-    router.replace("/tasks");
-  };
-
+export default function NewTaskScreen() {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Connexion</Text>
-      <TextInput placeholder="Email" keyboardType="email-address" style={styles.input} />
-      <TextInput placeholder="Mot de passe" secureTextEntry style={styles.input} />
+      <Text style={styles.title}>Nouvelle tache</Text>
+      <TextInput placeholder="Titre de la tache" style={styles.input} />
+      <TextInput
+        placeholder="Description"
+        multiline
+        numberOfLines={4}
+        style={[styles.input, styles.textarea]}
+      />
 
-      <Pressable onPress={handleLogin} style={styles.button}>
-        <Text style={styles.buttonText}>Se connecter</Text>
+      <Pressable style={styles.button}>
+        <Text style={styles.buttonText}>Enregistrer</Text>
       </Pressable>
 
-      <Link href="/signup" style={styles.link}>
-        Je n&apos;ai pas encore de compte
+      <Link href="/tasks" style={styles.link}>
+        Retour aux taches
       </Link>
     </View>
   );
@@ -40,6 +41,10 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     paddingHorizontal: 14,
     paddingVertical: 12,
+  },
+  textarea: {
+    minHeight: 120,
+    textAlignVertical: "top",
   },
   button: {
     backgroundColor: "#2563eb",
