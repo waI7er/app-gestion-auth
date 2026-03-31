@@ -1,5 +1,5 @@
-import { useNavigate } from "react-router-dom";
-import { View, Link } from "react-router-dom";
+import { useNavigate } from "expo-router";
+import { View, Link } from "expo-router";
 
 export default function Login({ setAuth }) {
   const navigate = useNavigate();

@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link } from "expo-router";
 
 export default function Tasks() {
   return (

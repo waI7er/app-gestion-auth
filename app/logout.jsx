@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "expo-router";
 
 export default function Logout({ setAuth }) {
   const navigate = useNavigate();
