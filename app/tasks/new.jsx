@@ -1,19 +1,41 @@
-import { Link } from "expo-router";
+import { Link, Redirect, router } from "expo-router";
+import { useState } from "react";
 import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
+import { useAuth } from "../../auth-context";
 
 export default function NewTaskScreen() {
+  const { addTask, user } = useAuth();
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+
+  if (!user) {
+    return <Redirect href="/login" />;
+  }
+
+  const handleSave = () => {
+    const created = addTask(title || description);
+
+    if (!created) {
+      return;
+    }
+
+    router.replace("/tasks");
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Nouvelle tache</Text>
-      <TextInput placeholder="Titre de la tache" style={styles.input} />
+      <TextInput onChangeText={setTitle} placeholder="Titre de la tache" style={styles.input} value={title} />
       <TextInput
         placeholder="Description"
         multiline
         numberOfLines={4}
+        onChangeText={setDescription}
         style={[styles.input, styles.textarea]}
+        value={description}
       />
 
-      <Pressable style={styles.button}>
+      <Pressable onPress={handleSave} style={styles.button}>
         <Text style={styles.buttonText}>Enregistrer</Text>
       </Pressable>
 

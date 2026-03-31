@@ -1,20 +1,34 @@
 import { Link } from "expo-router";
 import { StyleSheet, Text, View } from "react-native";
+import { useAuth } from "../auth-context";
 
 export default function HomeScreen() {
+  const { publicTasks, user } = useAuth();
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Bienvenue sur To-Do App</Text>
       <Text style={styles.subtitle}>Liste des taches publiques :</Text>
-      <Text style={styles.item}>- Tache publique 1</Text>
-      <Text style={styles.item}>- Tache publique 2</Text>
+      {publicTasks.map((task) => (
+        <Text key={task} style={styles.item}>
+          - {task}
+        </Text>
+      ))}
 
-      <Link href="/login" style={styles.link}>
-        Se connecter
-      </Link>
-      <Link href="/signup" style={styles.link}>
-        Creer un compte
-      </Link>
+      {user ? (
+        <Link href="/tasks" style={styles.link}>
+          Gerer mes taches
+        </Link>
+      ) : (
+        <>
+          <Link href="/login" style={styles.link}>
+            Se connecter
+          </Link>
+          <Link href="/signup" style={styles.link}>
+            Creer un compte
+          </Link>
+        </>
+      )}
     </View>
   );
 }

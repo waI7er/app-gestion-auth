@@ -1,12 +1,19 @@
-import { Link } from "expo-router";
+import { Link, Redirect } from "expo-router";
 import { StyleSheet, Text, View } from "react-native";
+import { useAuth } from "../auth-context";
 
 export default function ProfileScreen() {
+  const { user } = useAuth();
+
+  if (!user) {
+    return <Redirect href="/login" />;
+  }
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Mon profil</Text>
-      <Text style={styles.text}>Nom : Utilisateur demo</Text>
-      <Text style={styles.text}>Email : demo@example.com</Text>
+      <Text style={styles.text}>Nom : {user.fullName}</Text>
+      <Text style={styles.text}>Email : {user.email}</Text>
 
       <Link href="/tasks" style={styles.link}>
         Retour aux taches

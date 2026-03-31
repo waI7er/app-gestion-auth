@@ -1,10 +1,22 @@
-import { Link } from "expo-router";
+import { Link, Redirect } from "expo-router";
 import { StyleSheet, Text, View } from "react-native";
+import { useAuth } from "../auth-context";
 
 export default function TasksScreen() {
+  const { tasks, user } = useAuth();
+
+  if (!user) {
+    return <Redirect href="/login" />;
+  }
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Mes taches personnelles</Text>
+      {tasks.map((task) => (
+        <Text key={task} style={styles.item}>
+          - {task}
+        </Text>
+      ))}
       <Link href="/tasks/new" style={styles.link}>
         + Creer une tache
       </Link>
@@ -28,6 +40,9 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 28,
     fontWeight: "700",
+  },
+  item: {
+    fontSize: 16,
   },
   link: {
     color: "#2563eb",

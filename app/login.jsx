@@ -1,16 +1,44 @@
-import { Link, router } from "expo-router";
+import { Link, Redirect, router } from "expo-router";
+import { useState } from "react";
 import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
+import { useAuth } from "../auth-context";
 
 export default function LoginScreen() {
+  const { login, user } = useAuth();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  if (user) {
+    return <Redirect href="/tasks" />;
+  }
+
   const handleLogin = () => {
+    if (!email.trim() || !password.trim()) {
+      return;
+    }
+
+    login();
     router.replace("/tasks");
   };
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Connexion</Text>
-      <TextInput placeholder="Email" keyboardType="email-address" style={styles.input} />
-      <TextInput placeholder="Mot de passe" secureTextEntry style={styles.input} />
+      <TextInput
+        placeholder="Email"
+        keyboardType="email-address"
+        autoCapitalize="none"
+        onChangeText={setEmail}
+        style={styles.input}
+        value={email}
+      />
+      <TextInput
+        placeholder="Mot de passe"
+        secureTextEntry
+        onChangeText={setPassword}
+        style={styles.input}
+        value={password}
+      />
 
       <Pressable onPress={handleLogin} style={styles.button}>
         <Text style={styles.buttonText}>Se connecter</Text>

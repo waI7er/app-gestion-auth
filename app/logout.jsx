@@ -1,15 +1,20 @@
 import { useEffect } from "react";
 import { router } from "expo-router";
 import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
+import { useAuth } from "../auth-context";
 
 export default function LogoutScreen() {
+  const { logout } = useAuth();
+
   useEffect(() => {
+    logout();
+
     const timeout = setTimeout(() => {
-      router.replace("/login");
+      router.replace("/");
     }, 300);
 
     return () => clearTimeout(timeout);
-  }, []);
+  }, [logout]);
 
   return (
     <View style={styles.container}>

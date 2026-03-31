@@ -1,5 +1,10 @@
 import { Stack } from "expo-router";
+import { AuthProvider } from "../auth-context";
 
 export default function RootLayout() {
-  return <Stack screenOptions={{ headerTitleAlign: "center" }} />;
+  return (
+    <AuthProvider>
+      <Stack screenOptions={{ headerTitleAlign: "center" }} />
+    </AuthProvider>
+  );
 }

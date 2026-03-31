@@ -1,17 +1,45 @@
 import { router } from "expo-router";
+import { useState } from "react";
 import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
+import { useAuth } from "../auth-context";
 
 export default function SignupScreen() {
+  const { signup } = useAuth();
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
   const handleSignup = () => {
+    if (!fullName.trim() || !email.trim() || !password.trim()) {
+      return;
+    }
+
+    signup({
+      fullName: fullName.trim(),
+      email: email.trim(),
+    });
     router.replace("/login");
   };
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Inscription</Text>
-      <TextInput placeholder="Nom complet" style={styles.input} />
-      <TextInput placeholder="Email" keyboardType="email-address" style={styles.input} />
-      <TextInput placeholder="Mot de passe" secureTextEntry style={styles.input} />
+      <TextInput onChangeText={setFullName} placeholder="Nom complet" style={styles.input} value={fullName} />
+      <TextInput
+        placeholder="Email"
+        keyboardType="email-address"
+        autoCapitalize="none"
+        onChangeText={setEmail}
+        style={styles.input}
+        value={email}
+      />
+      <TextInput
+        placeholder="Mot de passe"
+        secureTextEntry
+        onChangeText={setPassword}
+        style={styles.input}
+        value={password}
+      />
 
       <Pressable onPress={handleSignup} style={styles.button}>
         <Text style={styles.buttonText}>Creer mon compte</Text>
