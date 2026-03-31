@@ -5,13 +5,11 @@ import {
   Navigate,
 } from "react-router-dom";
 import { useState } from "react";
-import Home from "./pages/Home";
-import Login from "./pages/Login";
-import Signup from "./pages/Signup";
-import Tasks from "./pages/Tasks";
-import NewTask from "./pages/NewTask";
-import Profile from "./pages/Profile";
-import Logout from "./pages/Logout";
+import Login from "./app/login";
+import Signup from "./app/signup";
+import Profile from "./app/profile";
+import Logout from "./app/logout";
+// import Tasks from "./app/Tasks";
 
 export default function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);

@@ -6,7 +6,7 @@ export default function Logout({ setAuth }) {
 
   useEffect(() => {
     setAuth(false);
-    navigate("/");
+    navigate("/login");
   }, [setAuth, navigate]);
 
   return <p>Déconnexion en cours...</p>;
